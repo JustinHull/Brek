@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class MoveLeft : MonoBehaviour
 {
-    private float speed = 30f;
+    private float speed = 30;
+    private float leftBound = -15;
     private PlayerControllerCityMan PlayerControllerScript;
 
     // Start is called before the first frame update
@@ -21,5 +22,11 @@ public class MoveLeft : MonoBehaviour
         {
             transform.Translate(Vector3.left * Time.deltaTime * speed);
         }  
+
+        // Destroys obstacle when the obstacle is out of bounds.
+        if(transform.position.x < leftBound && gameObject.CompareTag("Obstacle"))
+        {
+            Destroy(gameObject);
+        }
     }
 }
