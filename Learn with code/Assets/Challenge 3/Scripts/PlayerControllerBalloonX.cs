@@ -8,7 +8,7 @@ public class PlayerControllerBalloonX : MonoBehaviour
 
     public float floatForce;
     private float gravityModifier = 1.5f;
-    private Rigidbody playerRb;
+    public Rigidbody playerRb;
 
     public ParticleSystem explosionParticle;
     public ParticleSystem fireworksParticle;
@@ -16,7 +16,7 @@ public class PlayerControllerBalloonX : MonoBehaviour
     private AudioSource playerAudio;
     public AudioClip moneySound;
     public AudioClip explodeSound;
-
+    
 
     // Start is called before the first frame update
     void Start()
@@ -25,9 +25,8 @@ public class PlayerControllerBalloonX : MonoBehaviour
         playerAudio = GetComponent<AudioSource>();
 
         // Apply a small upward force at the start of the game
-        playerRb.AddForce(Vector3.up * 5, ForceMode.Impulse);
-
         playerRb = GetComponent<Rigidbody>();
+        playerRb.AddForce(Vector3.up * 5, ForceMode.Impulse);
     }
 
     // Update is called once per frame
