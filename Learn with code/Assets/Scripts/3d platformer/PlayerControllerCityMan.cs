@@ -10,6 +10,11 @@ public class PlayerControllerCityMan : MonoBehaviour
     public bool isOnGround = true;
     public bool gameOver = false;
     private Animator playerAnim;
+    public ParticleSystem explosionParticle;
+    public ParticleSystem dirtParticle;
+    public AudioClip jumpSound;
+    public AudioClip crashSound;
+    private AudioSource playerAudio;
 
     // Start is called before the first frame update
     void Start()
@@ -17,6 +22,7 @@ public class PlayerControllerCityMan : MonoBehaviour
         playerRb = GetComponent<Rigidbody>();
         playerAnim = GetComponent<Animator>();
         Physics.gravity *= gravityModifier;
+        playerAudio = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -28,6 +34,10 @@ public class PlayerControllerCityMan : MonoBehaviour
             isOnGround = false;
 
             playerAnim.SetTrigger("Jump_trig");
+
+            dirtParticle.Stop();
+
+            playerAudio.PlayOneShot(jumpSound, 1.0f);
         }
         
     }
@@ -37,6 +47,7 @@ public class PlayerControllerCityMan : MonoBehaviour
         if (collision.gameObject.CompareTag("Ground"))
         {
             isOnGround = true;
+            dirtParticle.Play();
         }
 
         else if (collision.gameObject.CompareTag("Obstacle"))
@@ -46,6 +57,12 @@ public class PlayerControllerCityMan : MonoBehaviour
 
             playerAnim.SetBool("Death_b", true);
             playerAnim.SetInteger("DeathType_int", 1);
+
+            explosionParticle.Play();
+
+            dirtParticle.Stop();
+
+            playerAudio.PlayOneShot(crashSound, 1.0f);
         }
     }
 }
