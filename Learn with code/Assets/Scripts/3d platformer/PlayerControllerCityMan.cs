@@ -44,9 +44,12 @@ public class PlayerControllerCityMan : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
+        //If the player collides with an object that has the tag “Ground” 
         if (collision.gameObject.CompareTag("Ground"))
         {
+            //Set the variable “isOnGround” to true
             isOnGround = true;
+            //Play the dirt particle animation.
             dirtParticle.Play();
         }
 
